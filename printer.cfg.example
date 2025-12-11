@@ -1,0 +1,43 @@
+# Copy this file to printer_data/config, rename it to printer.cfg, and edit it
+# as necessary.
+
+[include prusa-mk4/prusa-mk4.cfg]
+[include prusa-mk4/rpi.cfg]
+
+# Include if the xLCD is connected to xBuddy board (the stock configuration)
+# [include prusa-mk4/xlcd-xbuddy.cfg]
+
+# Include if the xLCD is connected to a Raspberry Pi using the xLCD HAT+
+# [include prusa-mk4/xlcd-rpi.cfg]
+
+# Uncomment if you have an accelerometer. It doesn't need to be always connected.
+# [include prusa-mk4/accelerometer.cfg]
+
+# Uncomment if a GPIO Hackerboard is connected, requires installation of the
+# [klipper-tc6408a plugin](https://codeberg.org/prusa-custom-firmware/klipper-tc6408a).
+# [include prusa-mk4/hackerboard.cfg]
+
+# Update with the serial device to use. When your xBuddy board has been flashed
+# with Klipper and is connected to the host, you can find the device with:
+#   ls /dev/serial/by-id
+[mcu]
+serial: /dev/serial/by-id/usb-Klipper_stm32f429xx_340035000250304E47333620-if00
+
+# You must configure an appropriate StallGuard threshold
+# https://www.klipper3d.org/TMC_Drivers.html#sensorless-homing
+[tmc2130 stepper_x]
+driver_SGT: -64
+
+[tmc2130 stepper_y]
+driver_SGT: -64
+
+# Mainsail and fluidd distribute Klipper configuration files, copy one into
+# your Klipper configuration directory.
+[include mainsail.cfg]
+
+# Nice-to-have
+[exclude_object]
+# Add arc-fitting support so that Prusa profiles work without modification
+[gcode_arcs]
+
+[include macros/macros.cfg]
